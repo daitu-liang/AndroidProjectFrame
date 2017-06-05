@@ -131,7 +131,6 @@ public class DownloadResponseBody extends ResponseBody {
                                 @Override
                                 public void accept(@NonNull Long aLong) throws Exception {
                                     if(progressListener!=null){
-                                        log.i("source","source--currentBytesCount="+currentBytesCount+"-------totalBytesCount="+totalBytesCount+"----是否完成下载="+(currentBytesCount==-1));
                                         double readNum = (currentBytesCount / (double) totalBytesCount) * 100;
                                         int progress = (int) Math.ceil(readNum);
                                         progressListener.onDownloadProgress(currentBytesCount, totalBytesCount,progress, currentBytesCount==-1);

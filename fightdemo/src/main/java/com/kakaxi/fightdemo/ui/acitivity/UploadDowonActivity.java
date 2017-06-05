@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kakaxi.fightdemo.R;
+import com.kakaxi.fightdemo.network.ApiSubscriber;
 import com.kakaxi.fightdemo.network.api.commom.ApiCommom;
 import com.kakaxi.fightdemo.network.uploaddowon.DownloadProgressListener;
 import com.kakaxi.fightdemo.network.uploaddowon.ServiceGenerator;
@@ -23,8 +24,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -84,7 +83,7 @@ public class UploadDowonActivity extends AppCompatActivity implements DownloadPr
         mProgressBar.setVisibility(View.VISIBLE);
         //之前的请求方法
         ApiCommom uploadService = ServiceGenerator.createUploadService(ApiCommom.class, this);
-        File file = new File("/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/test_upload.jpg");
+        File file = new File("/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/map.zip");
         log.e(TAG, "file=" + file);
         if (file == null) return;
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -93,12 +92,13 @@ public class UploadDowonActivity extends AppCompatActivity implements DownloadPr
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseBody>() {
-                    @Override
-                    public void accept(@NonNull ResponseBody responseBody) throws Exception {
-                        log.e("onResponse", "upLoadFile--->-----上传结束--:" + responseBody.contentLength());
-                    }
-                });
+               .subscribe(new ApiSubscriber<ResponseBody>() {
+                   @Override
+                   protected void onSuccess(ResponseBody bean) {
+                       log.i("onResponse", "onSuccess--->-----上传成功--");
+
+                   }
+               });
     }
 
     /**
@@ -114,11 +114,11 @@ public class UploadDowonActivity extends AppCompatActivity implements DownloadPr
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<File>() {
+                .subscribe(new ApiSubscriber<File>() {
                     @Override
-                    public void accept(@NonNull File file) throws Exception {
-                        log.e("onResponse", "downloadFileRxjava--->-----下载结束--------file path:" + file.getPath());
-                        pathTv.setText("保存路径：" + file.getPath());
+                    protected void onSuccess(File file) {
+                        log.i("onResponse", "onSuccess--->-----下载结束--------file path:" + file.getPath());
+                        pathTv.setText(file.getPath().toString());
                     }
                 });
     }
@@ -157,10 +157,10 @@ public class UploadDowonActivity extends AppCompatActivity implements DownloadPr
      */
     @Override
     public void onDownloadProgress(long currentBytesCount, long totalBytesCount, int progress, boolean done) {
-        log.e(TAG, "onDownloadProgress--bytesRead=" + currentBytesCount + "---totalBytesCount=" + totalBytesCount + "--progress=" + progress + "----是否完成下载=" + done);
+        log.d(TAG, "onDownloadProgress--currentBytesCount=" + currentBytesCount + "---totalBytesCount=" + totalBytesCount + "--progress=" + progress + "%----是否完成下载=" + done);
         mProgressBar.setProgress(progress);
         progressBarTv.setText(progress + "%");
-        log.e(TAG, "onDownloadProgress--------》------thread=" + Thread.currentThread().getName());
+//        log.e(TAG, "onDownloadProgress--------》------thread=" + Thread.currentThread().getName());
     }
 
 
@@ -173,10 +173,10 @@ public class UploadDowonActivity extends AppCompatActivity implements DownloadPr
      */
     @Override
     public void onUploadProgress(long currentBytesCount, long totalBytesCount, int progress, boolean done) {
-        log.e(TAG, "onUploadProgress--progress=" + progress);
+        log.d(TAG, "onUploadProgress--currentBytesCount=" + currentBytesCount + "---totalBytesCount=" + totalBytesCount + "--progress=" + progress + "%----是否完成下载=" + done);
         mProgressBar.setProgress(progress);
         progressBarTv.setText(progress + "%");
         progressBarTv.setText(progress + "%");
-        log.e(TAG, "onUploadProgress--------》------thread=" + Thread.currentThread().getName());
+//        log.e(TAG, "onUploadProgress--------》------thread=" + Thread.currentThread().getName());
     }
 }
