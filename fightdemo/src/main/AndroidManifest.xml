@@ -52,7 +52,7 @@
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".network.TestHttpActivity" />
-        <activity android:name=".ui.acitivity.UploadDowonActivity" />
+        <activity android:name=".ui.acitivity.UploadDownActivity" />
 
     </application>
 

@@ -1,4 +1,4 @@
-package com.kakaxi.fightdemo.network.uploaddowon;
+package com.kakaxi.fightdemo.network.uploaddown;
 
 import android.os.Environment;
 import android.support.annotation.Nullable;

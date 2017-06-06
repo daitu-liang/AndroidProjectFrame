@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.kakaxi.fightdemo.R;
 import com.kakaxi.fightdemo.network.TestHttpActivity;
 import com.kakaxi.fightdemo.ui.acitivity.ScrollingActivity;
-import com.kakaxi.fightdemo.ui.acitivity.UploadDowonActivity;
+import com.kakaxi.fightdemo.ui.acitivity.UploadDownActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +63,7 @@ public class SimpleCardFragment extends Fragment {
                 startActivity(ScrollingActivity.getIntent(getActivity()));
                 break;
             case R.id.button3:
-                startActivity(UploadDowonActivity.getIntent(getActivity()));
+                startActivity(UploadDownActivity.getIntent(getActivity()));
                 break;
         }
     }

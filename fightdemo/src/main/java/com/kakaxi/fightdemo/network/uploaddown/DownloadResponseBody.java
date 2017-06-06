@@ -1,4 +1,4 @@
-package com.kakaxi.fightdemo.network.uploaddowon;
+package com.kakaxi.fightdemo.network.uploaddown;
 
 import com.kakaxi.fightdemo.utils.Logger;
 

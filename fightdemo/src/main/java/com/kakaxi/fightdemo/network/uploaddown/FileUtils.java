@@ -1,4 +1,4 @@
-package com.kakaxi.fightdemo.network.uploaddowon;
+package com.kakaxi.fightdemo.network.uploaddown;
 
 import java.io.File;
 import java.io.FileOutputStream;

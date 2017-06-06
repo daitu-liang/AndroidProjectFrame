@@ -39,6 +39,12 @@ public class LoggerInterceptor implements Interceptor
     public Response intercept(Chain chain) throws IOException
     {
         Request request = chain.request();
+
+   /*     //公共参数也可以在拦截器里设置
+        HttpUrl httpUrl = request.url().newBuilder()
+                .addQueryParameter("token", "tokenValue")
+                .build();
+        request = request.newBuilder().url(httpUrl).build();*/
         logForRequest(request);
         Response response = chain.proceed(request);
         return logForResponse(response);

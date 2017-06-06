@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_test_http"
     android:layout_width="match_parent"
@@ -8,50 +8,90 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.kakaxi.fightdemo.network.TestHttpActivity">
-
-
 
     <Button
         android:text="下载"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:background="@color/colorAccent"
         android:id="@+id/btn_down" />
-
-    <Button
-        android:text="上传"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorAccent"
-        android:id="@+id/btn_upload" />
-
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_upload"
-        android:layout_marginTop="20dp"
-      android:paddingRight="30dp"
-        android:id="@+id/progressBar" />
+        android:layout_marginTop="10dp"
+        android:id="@+id/progressBar_down" />
     <TextView
-        android:id="@+id/progressBar_tv"
+        android:id="@+id/progressBar_down_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_upload"
-        android:layout_alignRight="@id/progressBar"
-        android:layout_marginTop="20dp"
-        android:text="dd"
+        android:text="0%"
          />
     <TextView
         android:id="@+id/path_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar"
-        android:layout_marginTop="20dp"
-
+        android:layout_marginTop="5dp"
         />
-</RelativeLayout>
+    <Button
+        android:text="上传"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+     android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:id="@+id/btn_upload" />
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/progressBar_upload" />
+    <TextView
+        android:id="@+id/progressBar_upload_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        />
+
+    <Button
+        android:text="多文件上传"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:id="@+id/btn_multi_upload" />
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/progressBar_multi_upload" />
+    <TextView
+        android:id="@+id/progressBar_multi_upload_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        />
+
+    <Button
+        android:text="带参文件上传"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:id="@+id/btn_params_upload" />
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/progressBar_params_upload" />
+    <TextView
+        android:id="@+id/progressBar_params_upload_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        />
+</LinearLayout>

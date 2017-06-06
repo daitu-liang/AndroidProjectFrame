@@ -1,4 +1,6 @@
-package com.kakaxi.fightdemo.network.uploaddowon;
+package com.kakaxi.fightdemo.network.uploaddown;
+
+import com.kakaxi.fightdemo.network.LoggerInterceptor;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -23,7 +25,8 @@ public class ServiceGenerator {
      * 创建带响应进度(下载进度)回调的service
      */
     public static <T> T createDownloadService(Class<T> tClass, DownloadProgressListener listener){
-        OkHttpClient client = HttpClientHelper.addProgressDownloadListener(new OkHttpClient.Builder(),listener).build();
+        OkHttpClient client = HttpClientHelper.addProgressDownloadListener(new OkHttpClient.Builder(),listener)
+                .addInterceptor(new LoggerInterceptor("fightdemo",true)).build();
         return builder
                 .client(client)
                 .build()
@@ -33,7 +36,8 @@ public class ServiceGenerator {
      * 创建带请求体进度(上传进度)回调的service
      */
     public static <T> T createUploadService(Class<T> tClass, UploadProgressListener listener){
-        OkHttpClient client = HttpClientHelper.addProgressUploadListener(new OkHttpClient.Builder(),listener).build();
+        OkHttpClient client = HttpClientHelper.addProgressUploadListener(new OkHttpClient.Builder(),listener)
+                .addInterceptor(new LoggerInterceptor("fightdemo",true)).build();
         return builder
                 .client(client)
                 .build()

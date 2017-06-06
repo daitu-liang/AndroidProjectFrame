@@ -3,12 +3,14 @@ package com.kakaxi.fightdemo.network.api.commom;
 import com.kakaxi.fightdemo.bean.NiuxInfo;
 import com.kakaxi.fightdemo.network.HttpResult;
 import com.kakaxi.fightdemo.network.api.NetApi;
-import com.kakaxi.fightdemo.network.uploaddowon.FileConverter;
+import com.kakaxi.fightdemo.network.uploaddown.FileConverter;
 
 import java.io.File;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -16,6 +18,8 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
+import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -37,6 +41,26 @@ public interface ApiCommom {
     @Multipart
     @POST(NetApi.UPLOAD_FILE)
     Observable<ResponseBody> upLoadFile(@Part MultipartBody.Part file);
+
+    /**
+     * 带参上传
+     * @param map
+     * @param file
+     * @return
+     */
+
+    @Multipart
+    @POST(NetApi.UPLOAD_FILE)
+    Observable<ResponseBody> upLoadFile(@QueryMap Map<String,String> map, @Part MultipartBody.Part file);
+
+    /**
+     * 上传多文件
+     * @param map
+     * @return
+     */
+    @Multipart
+    @POST(NetApi.UPLOAD_FILE)
+    Observable<ResponseBody> upLoadMutiFile(@PartMap Map<String, RequestBody> map);
     /**
      * 断点续传下载接口
     */

@@ -1,4 +1,4 @@
-package com.kakaxi.fightdemo.network.uploaddowon;
+package com.kakaxi.fightdemo.network.uploaddown;
 
 /**
  * Created by leixiaoliang on 2017/4/15.

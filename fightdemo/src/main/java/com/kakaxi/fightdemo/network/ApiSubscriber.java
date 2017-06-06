@@ -20,76 +20,76 @@ public abstract class ApiSubscriber<T> extends DisposableObserver<T> {
     private ProgressDialogHandler mProgressDialogHandler;
     private boolean showDialog = true;
     private Context context;
+
     public ApiSubscriber() {
-        showDialog=false;
+        showDialog = false;
     }
+
     public ApiSubscriber(Context context) {
         this.context = context;
-        mProgressDialogHandler = new ProgressDialogHandler(context,  true);
+        mProgressDialogHandler = new ProgressDialogHandler(context, true);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(showDialog){
+        if (showDialog) {
             showProgressDialog();
         }
-        log.e("","onStart-ApiSubscriberr="+ this.isDisposed()+"-showDialog--"+showDialog);
+        log.e("", "onStart-ApiSubscriberr=" + this.isDisposed() + "-showDialog--" + showDialog);
     }
 
     @Override
     public void onNext(T t) {
-        log.e("","onNext-ApiSubscriber="+ this.isDisposed());
+        log.e("", "onNext-ApiSubscriber=" + this.isDisposed());
         onSuccess(t);
 
     }
+
     protected abstract void onSuccess(T bean);
 
     @Override
     public void onError(Throwable e) {
-
-        log.e("","onError---ApiSubscriber="+ e.getMessage());
-
+        log.e("", "onError---ApiSubscriber=" + e.getMessage());
         if (e instanceof SocketTimeoutException) {
-            Toast.makeText(FightApplication.getContext(), "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
+            Toast.makeText(FightApplication.getContext(), "请求超时", Toast.LENGTH_SHORT).show();
         } else if (e instanceof ConnectException) {
-            Toast.makeText(FightApplication.getContext(), "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
+            Toast.makeText(FightApplication.getContext(), "连接失败", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(FightApplication.getContext(), "error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         dismissProgressDialog();
 //        Toast.makeText(FightApplication.getContext(), "error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
-        log.e("","onError-CanlSubscriberror="+ this.isDisposed());
+        log.e("", "onError-CanlSubscriberror=" + this.isDisposed());
         doCanlSubscribe();
     }
 
     @Override
     public void onComplete() {
-        log.e("","onComplete-CanlSubscriberror="+ this.isDisposed()+"-showDialog--"+showDialog);
-        if(showDialog){
+        log.e("", "onComplete-CanlSubscriberror=" + this.isDisposed() + "-showDialog--" + showDialog);
+        if (showDialog) {
             dismissProgressDialog();
         }
-
         doCanlSubscribe();
     }
 
     /**
      * 断开上下流，解绑
      */
-    public void doCanlSubscribe(){
-        if(!this.isDisposed()){
+    public void doCanlSubscribe() {
+        if (!this.isDisposed()) {
             this.dispose();
-            log.e("","doCanlSubscribe="+ this.isDisposed());
+            log.e("", "doCanlSubscribe=" + this.isDisposed());
         }
     }
 
-    private void showProgressDialog(){
+    private void showProgressDialog() {
         if (mProgressDialogHandler != null) {
             mProgressDialogHandler.obtainMessage(ProgressDialogHandler.SHOW_PROGRESS_DIALOG).sendToTarget();
         }
     }
 
-    private void dismissProgressDialog(){
+    private void dismissProgressDialog() {
         if (mProgressDialogHandler != null) {
             mProgressDialogHandler.obtainMessage(ProgressDialogHandler.DISMISS_PROGRESS_DIALOG).sendToTarget();
 //            mProgressDialogHandler.removeCallbacksAndMessages(null);
