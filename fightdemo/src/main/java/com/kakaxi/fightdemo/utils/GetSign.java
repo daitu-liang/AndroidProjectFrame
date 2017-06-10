@@ -1,5 +1,7 @@
 package com.kakaxi.fightdemo.utils;
 
+import android.text.TextUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class GetSign {
         for (int i = 0; i < list.size(); i++) {
 //            String infoStr = map.get(list.get(i)).toString();
 //            if(!TextUtils.isEmpty(infoStr)){
-            if(map.get(list.get(i))!=null&&map.get(list.get(i)).toString()!="" ) {
+            if(map.get(list.get(i))!=null&&!TextUtils.isEmpty(map.get(list.get(i)).toString())) {
                 try {
                     System.out.println(list.get(i) + "=" + URLEncoder.encode(String.valueOf(map.get(list.get(i))), "utf-8"));
                     sb.append(list.get(i) + "=" + URLEncoder.encode(String.valueOf(map.get(list.get(i))), "utf-8"));

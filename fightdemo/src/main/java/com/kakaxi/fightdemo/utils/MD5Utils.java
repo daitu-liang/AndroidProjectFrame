@@ -34,6 +34,6 @@ public class MD5Utils {
     /**
      * 密钥
      */
-    public	static String _KEY = "";
+    public	static String _KEY = "Idlkw9LD)kdfho,..qw34dfss";
 
 }

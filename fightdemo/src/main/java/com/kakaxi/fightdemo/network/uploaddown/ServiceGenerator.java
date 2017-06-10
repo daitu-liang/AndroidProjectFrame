@@ -1,6 +1,7 @@
 package com.kakaxi.fightdemo.network.uploaddown;
 
 import com.kakaxi.fightdemo.network.LoggerInterceptor;
+import com.kakaxi.fightdemo.utils.Constant;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -26,7 +27,7 @@ public class ServiceGenerator {
      */
     public static <T> T createDownloadService(Class<T> tClass, DownloadProgressListener listener){
         OkHttpClient client = HttpClientHelper.addProgressDownloadListener(new OkHttpClient.Builder(),listener)
-                .addInterceptor(new LoggerInterceptor("fightdemo",true)).build();
+                .addInterceptor(new LoggerInterceptor("fightdemo", Constant.DEBUG)).build();
         return builder
                 .client(client)
                 .build()
@@ -37,7 +38,7 @@ public class ServiceGenerator {
      */
     public static <T> T createUploadService(Class<T> tClass, UploadProgressListener listener){
         OkHttpClient client = HttpClientHelper.addProgressUploadListener(new OkHttpClient.Builder(),listener)
-                .addInterceptor(new LoggerInterceptor("fightdemo",true)).build();
+                .addInterceptor(new LoggerInterceptor("fightdemo",Constant.DEBUG)).build();
         return builder
                 .client(client)
                 .build()

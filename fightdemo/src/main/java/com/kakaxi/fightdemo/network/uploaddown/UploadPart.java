@@ -25,6 +25,6 @@ public class UploadPart {
      * @return
      */
     public static  RequestBody toRequestBody(String value){
-        return RequestBody.create(MediaType.parse("text/plain"),value);
+        return RequestBody.create(MediaType.parse("multipart/form-data"),value);
     }
 }

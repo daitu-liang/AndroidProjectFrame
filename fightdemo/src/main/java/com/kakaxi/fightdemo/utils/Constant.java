@@ -6,6 +6,7 @@ package com.kakaxi.fightdemo.utils;
  */
 
 public class Constant {
+    public static final boolean DEBUG = true;
     /**
      * 程序文件
      */

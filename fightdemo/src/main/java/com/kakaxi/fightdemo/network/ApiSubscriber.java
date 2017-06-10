@@ -50,7 +50,7 @@ public abstract class ApiSubscriber<T> extends DisposableObserver<T> {
 
     @Override
     public void onError(Throwable e) {
-        log.e("", "onError---ApiSubscriber=" + e.getMessage());
+        log.e("", "onError---ApiSubscriber-message=" + e.getMessage());
         if (e instanceof SocketTimeoutException) {
             Toast.makeText(FightApplication.getContext(), "请求超时", Toast.LENGTH_SHORT).show();
         } else if (e instanceof ConnectException) {

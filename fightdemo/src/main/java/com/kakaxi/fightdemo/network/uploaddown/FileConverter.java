@@ -17,7 +17,7 @@ public class FileConverter implements Converter<ResponseBody, File> {
     /**
      * 添加请求头的key,后面数字为了防止重复
      */
-    public static final String SAVE_PATH = "savePath2016050433191";
+    public static final String SAVE_PATH = "savePath2017";
 
     static final FileConverter INSTANCE = new FileConverter();
 

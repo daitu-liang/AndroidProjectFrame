@@ -16,7 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:id="@+id/btn_down" />
+        android:id="@+id/btn_down"
+        android:textAllCaps="false" />
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
@@ -36,12 +37,13 @@
         android:layout_marginTop="5dp"
         />
     <Button
-        android:text="上传"
+        android:text="上传单文件"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
      android:layout_marginTop="10dp"
         android:background="@color/colorAccent"
-        android:id="@+id/btn_upload" />
+        android:id="@+id/btn_upload"
+        android:textAllCaps="false"  />
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
@@ -54,14 +56,34 @@
         android:layout_height="wrap_content"
         android:text="0%"
         />
-
     <Button
-        android:text="多文件上传"
+        android:text="单文件上传带参@Part"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@color/colorAccent"
-        android:id="@+id/btn_multi_upload" />
+        android:id="@+id/btn_upload_part"
+        android:textAllCaps="false"  />
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/progressBar_upload_part" />
+    <TextView
+        android:id="@+id/progressBar_upload_part_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        />
+    <Button
+        android:text="多文件上传带参@PartMap Map String, RequestBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:id="@+id/btn_multi_upload"
+        android:textAllCaps="false"  />
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
@@ -76,12 +98,13 @@
         />
 
     <Button
-        android:text="带参文件上传"
+        android:text="带参文件上传@QueryMap "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@color/colorAccent"
-        android:id="@+id/btn_params_upload" />
+        android:id="@+id/btn_params_upload"
+        android:textAllCaps="false"  />
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"

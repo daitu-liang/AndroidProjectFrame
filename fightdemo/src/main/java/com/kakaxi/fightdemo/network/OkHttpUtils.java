@@ -1,6 +1,8 @@
 package com.kakaxi.fightdemo.network;
 
 
+import com.kakaxi.fightdemo.utils.Constant;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -14,28 +16,25 @@ public class OkHttpUtils {
     private static final int DEFAULT_TIMEOUT = 10;
     private static final int DEFAULT_READ_TIMEOUT = 10;
     private static final int DEFAULT_WRITE_TIMEOUT = 10;
-    private static class OkHttpHolder {
-        private static final OkHttpUtils INSTANCE = new OkHttpUtils();
 
-    }
 
-    public static final OkHttpUtils getInstance() {
-        return OkHttpUtils.OkHttpHolder.INSTANCE;
-    }
-    private static class GetOkHttpInstance {
-        private static final OkHttpClient INSTANCE =
-                new OkHttpClient.Builder()
-                        .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                        .readTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS)
-                        .writeTimeout(DEFAULT_WRITE_TIMEOUT, TimeUnit.MILLISECONDS)
-//                        .addInterceptor(new LoggerInterceptor("fightdemo",true))
-                        .addInterceptor(getHttpLoggingInterceptor())
-//                        .addNetworkInterceptor(getCacheInterceptor()).cache(cache).addInterceptor(getCacheInterceptor())
-                        .build();
+    private static class OkHttpClientBuilder {
+        private static final OkHttpClient.Builder BUILDER = create();
+        private static OkHttpClient.Builder create() {
+            OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+            builder.readTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS);
+            builder.writeTimeout(DEFAULT_WRITE_TIMEOUT, TimeUnit.SECONDS);
+            builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            if (Constant.DEBUG) {
+                builder.addInterceptor(getHttpLoggingInterceptor());
+//                builder .addInterceptor(new LoggerInterceptor("fightdemo",true));
+            }
+            return builder;
+        }
     }
 
     public static final OkHttpClient getClient() {
-        return GetOkHttpInstance.INSTANCE;
+        return OkHttpClientBuilder.BUILDER.build();
     }
 
     /**

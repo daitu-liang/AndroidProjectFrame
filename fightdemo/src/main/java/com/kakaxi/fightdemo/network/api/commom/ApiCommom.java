@@ -34,14 +34,21 @@ public interface ApiCommom {
     Observable<HttpResult<NiuxInfo>> getNunix();
 
     /**
-     * 上传
+     * 上传单文件
      * @param file
      * @return
      */
     @Multipart
     @POST(NetApi.UPLOAD_FILE)
-    Observable<ResponseBody> upLoadFile(@Part MultipartBody.Part file);
-
+    Observable<ResponseBody> upLoadFile( @Part MultipartBody.Part file);
+    /**
+     * 上传带参
+     * @param file
+     * @return
+     */
+    @Multipart
+    @POST(NetApi.UPLOAD_FILE)
+    Observable<ResponseBody> upLoadFile(@Part("description")RequestBody description, @Part MultipartBody.Part file);
     /**
      * 带参上传
      * @param map
