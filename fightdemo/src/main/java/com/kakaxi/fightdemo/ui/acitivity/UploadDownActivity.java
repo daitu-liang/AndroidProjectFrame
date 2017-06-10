@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +61,19 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
     ProgressBar progressBarUploadPart;
     @BindView(R.id.progressBar_upload_part_tv)
     TextView progressBarUploadPartTv;
+    @BindView(R.id.path_retofit_tv)
+    TextView pathRetofitTv;
+
+    @BindView(R.id.progressBar_down_retofit)
+    ProgressBar progressBarDownRetofit;
+    @BindView(R.id.progressBar_down_retofit_tv)
+    TextView progressBarDownRetofitTv;
+    @BindView(R.id.btn_upload_part)
+    Button btnUploadPart;
+    @BindView(R.id.btn_params_upload)
+    Button btnParamsUpload;
+    @BindView(R.id.activity_test_http)
+    ScrollView activityTestHttp;
     private Logger log = Logger.getLogger(TAG);
 
     @BindView(R.id.btn_down)
@@ -87,12 +101,15 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_down, R.id.btn_upload, R.id.btn_multi_upload, R.id.btn_params_upload, R.id.btn_upload_part})
+    @OnClick({R.id.btn_down, R.id.btn_upload, R.id.btn_multi_upload,
+            R.id.btn_params_upload, R.id.btn_upload_part,R.id.btn_down_retofit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_down:
-                downloadFileRxjava();
-//                downloadFileByCall();
+                downloadFileByRetofitRxjava();
+                break;
+            case R.id.btn_down_retofit:
+                downloadFileByRetofit();
                 break;
             case R.id.btn_upload:
                 upLoadFile();
@@ -138,6 +155,7 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
 
     /**
      * 多文件上传带参
+     *
      * @PartMap Map<String, RequestBody>
      */
     private void multiUpLoadFile() {
@@ -183,6 +201,7 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
 
     /**
      * 单文件上传带参@Part
+     *
      * @Part("description")RequestBody description, @Part MultipartBody.Part file
      */
     private void upLoadPartParamsFile() {
@@ -193,7 +212,7 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
             @Override
             public void onUploadProgress(long currentBytesCount, long totalBytesCount, int progress, boolean done) {
                 progressBarUploadPart.setProgress(progress);
-                progressBarUploadPartTv.setText(progress+"%");
+                progressBarUploadPartTv.setText(progress + "%");
             }
         });
 
@@ -216,6 +235,7 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
 
     /**
      * 单文件上传
+     *
      * @Part MultipartBody.Part file
      */
     private void upLoadFile() {
@@ -238,10 +258,11 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
     }
 
 
+
     /**
      * 下载retofit+rxjava
      */
-    private void downloadFileRxjava() {
+    private void downloadFileByRetofitRxjava() {
         mProgressBar.setVisibility(View.VISIBLE);
         String url1 = "http://issuecdn.baidupcs.com/issue/netdisk/apk/BaiduNetdisk_7.15.1.apk";
         String url = "http://192.168.1.115:8080/downzone/test_upload.jpg";
@@ -262,26 +283,33 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
     }
 
     /**
-     * 下载okhttp
+     * 下载retofit
      */
-    private void downloadFileByCall() {
+    private void downloadFileByRetofit() {
         String url = "http://issuecdn.baidupcs.com/issue/netdisk/apk/BaiduNetdisk_7.15.1.apk";
         String url2 = "http://t.img.i.hsuperior.com/a38ee054-b941-4eb9-9e83-ba45a2ae13a8";
-        ApiCommom downloadService = ServiceGenerator.createDownloadService(ApiCommom.class, this);
+        ApiCommom downloadService = ServiceGenerator.createDownloadService(ApiCommom.class, new DownloadProgressListener() {
+            @Override
+            public void onDownloadProgress(long currentBytesCount, long totalBytesCount, int progress, boolean done) {
+                progressBarDownRetofit.setProgress(progress);
+                progressBarDownRetofitTv.setText(progress+"%");
+            }
+        });
         String savePath = getExternalFilesDir(null) + File.separator + "BaiduNetdisk.apk";
-        mProgressBar.setVisibility(View.VISIBLE);
+        progressBarDownRetofit.setVisibility(View.VISIBLE);
         Call call = downloadService.downloadFileCall(url, savePath);
         call.enqueue(new Callback<File>() {
             @Override
             public void onResponse(Call<File> call, Response<File> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     log.e("onResponse", "call_onResponse_file path:" + response.body().getPath());
+                    pathRetofitTv.setText("保存："+response.body().getPath());
                 }
             }
 
             @Override
             public void onFailure(Call<File> call, Throwable t) {
-                mProgressBar.setVisibility(View.GONE);
+                progressBarDownRetofit.setVisibility(View.GONE);
             }
         });
     }
