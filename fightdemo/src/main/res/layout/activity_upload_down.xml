@@ -9,140 +9,152 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.kakaxi.fightdemo.network.TestHttpActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <Button
-        android:text="retofit+rxjava下载"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:id="@+id/btn_down"
-        android:textAllCaps="false" />
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/progressBar_down" />
-    <TextView
-        android:id="@+id/progressBar_down_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0%"
-         />
+
+        <Button
+            android:id="@+id/btn_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:text="retofit+rxjava下载"
+            android:textAllCaps="false" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_down"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/progressBar_down_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+
         <TextView
             android:id="@+id/path_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            />
-    <Button
-        android:text="retofit下载"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:id="@+id/btn_down_retofit"
-        android:textAllCaps="false" />
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/progressBar_down_retofit" />
-    <TextView
-        android:id="@+id/progressBar_down_retofit_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0%"
-        />
-    <TextView
-        android:id="@+id/path_retofit_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        />
-    <Button
-        android:text="上传单文件"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-     android:layout_marginTop="10dp"
-        android:background="@color/colorAccent"
-        android:id="@+id/btn_upload"
-        android:textAllCaps="false"  />
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/progressBar_upload" />
-    <TextView
-        android:id="@+id/progressBar_upload_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0%"
-        />
-    <Button
-        android:text="单文件上传带参@Part"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorAccent"
-        android:id="@+id/btn_upload_part"
-        android:textAllCaps="false"  />
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/progressBar_upload_part" />
-    <TextView
-        android:id="@+id/progressBar_upload_part_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0%"
-        />
-    <Button
-        android:text="多文件上传带参@PartMap Map String, RequestBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorAccent"
-        android:id="@+id/btn_multi_upload"
-        android:textAllCaps="false"  />
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/progressBar_multi_upload" />
-    <TextView
-        android:id="@+id/progressBar_multi_upload_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0%"
-        />
+            android:layout_marginTop="5dp" />
 
-    <Button
-        android:text="带参文件上传@QueryMap "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorAccent"
-        android:id="@+id/btn_params_upload"
-        android:textAllCaps="false"  />
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/progressBar_params_upload" />
-    <TextView
-        android:id="@+id/progressBar_params_upload_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0%"
-        />
+        <Button
+            android:id="@+id/btn_down_retofit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:text="retofit下载"
+            android:textAllCaps="false" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_down_retofit"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/progressBar_down_retofit_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+
+        <TextView
+            android:id="@+id/path_retofit_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
+
+        <Button
+            android:id="@+id/btn_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorAccent"
+            android:text="上传单文件"
+            android:textAllCaps="false" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_upload"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/progressBar_upload_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+
+        <Button
+            android:id="@+id/btn_upload_part"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorAccent"
+            android:text="单文件上传带参@Part"
+            android:textAllCaps="false" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_upload_part"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/progressBar_upload_part_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+
+        <Button
+            android:id="@+id/btn_multi_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorAccent"
+            android:text="多文件上传带参@PartMap Map String, RequestBody"
+            android:textAllCaps="false" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_multi_upload"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/progressBar_multi_upload_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+
+        <Button
+            android:id="@+id/btn_params_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorAccent"
+            android:text="带参文件上传@QueryMap "
+            android:textAllCaps="false" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_params_upload"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/progressBar_params_upload_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
     </LinearLayout>
 </ScrollView>

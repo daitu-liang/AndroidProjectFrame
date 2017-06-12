@@ -42,13 +42,14 @@ public interface ApiCommom {
     @POST(NetApi.UPLOAD_FILE)
     Observable<ResponseBody> upLoadFile( @Part MultipartBody.Part file);
     /**
-     * 上传带参
+     * 上传带参Part
      * @param file
      * @return
      */
     @Multipart
     @POST(NetApi.UPLOAD_FILE)
     Observable<ResponseBody> upLoadFile(@Part("description")RequestBody description, @Part MultipartBody.Part file);
+
     /**
      * 带参上传
      * @param map
@@ -68,6 +69,7 @@ public interface ApiCommom {
     @Multipart
     @POST(NetApi.UPLOAD_FILE)
     Observable<ResponseBody> upLoadMutiFile(@PartMap Map<String, RequestBody> map);
+
     /**
      * 断点续传下载接口
     */

@@ -102,7 +102,8 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
     }
 
     @OnClick({R.id.btn_down, R.id.btn_upload, R.id.btn_multi_upload,
-            R.id.btn_params_upload, R.id.btn_upload_part,R.id.btn_down_retofit})
+            R.id.btn_params_upload, R.id.btn_upload_part,
+            R.id.btn_down_retofit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_down:
@@ -112,35 +113,32 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
                 downloadFileByRetofit();
                 break;
             case R.id.btn_upload:
-                upLoadFile();
+                upLoadFile();//单文件
                 break;
             case R.id.btn_upload_part:
-                upLoadPartParamsFile();
+                upLoadPartParamsFile();//单文件上传带参@Part
                 break;
             case R.id.btn_multi_upload:
-                multiUpLoadFile();
+                multiUpLoadFile();//@PartMap Map<String, RequestBody>
                 break;
             case R.id.btn_params_upload:
-                paramsUpLoadFile();
+                paramsUpLoadFile();//带参上传文件@QueryMap
                 break;
         }
     }
 
     /**
-     * 带参上传文件@QueryMap
+     * 单文件上传
+     *
+     * @Part MultipartBody.Part file
      */
-    private void paramsUpLoadFile() {
-        String filePath = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/map.zip";
+    private void upLoadFile() {
+        progressBarUpload.setVisibility(View.VISIBLE);
+        String filePath = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/test_upload.jpg";
         //之前的请求方法
-        ApiCommom uploadService = ServiceGenerator.createUploadService(ApiCommom.class, new UploadProgressListener() {
-            @Override
-            public void onUploadProgress(long currentBytesCount, long totalBytesCount, int progress, boolean done) {
-                progressBarParamsUpload.setProgress(progress);
-                progressBarParamsUploadTv.setText(progress + "%");
-            }
-        });
-        MultipartBody.Part requestBody = UploadPart.getFilePart("file", filePath);
-        Observable<ResponseBody> observable = uploadService.upLoadFile(ParamsMapUtils.getParamsMap(), requestBody);
+        ApiCommom uploadService = ServiceGenerator.createUploadService(ApiCommom.class, this);
+        MultipartBody.Part requestBody = UploadPart.getFilePart("file-test", filePath);
+        Observable<ResponseBody> observable = uploadService.upLoadFile(requestBody);
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -154,18 +152,51 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
     }
 
     /**
+     * 单文件上传带参@Part
+     *
+     * @Part("description")RequestBody description, @Part MultipartBody.Part file
+     */
+    private void upLoadPartParamsFile() {
+        progressBarUpload.setVisibility(View.VISIBLE);
+        String filePath = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/netapi.zip";
+        //之前的请求方法
+        ApiCommom uploadService = ServiceGenerator.createUploadService(ApiCommom.class, new UploadProgressListener() {
+            @Override
+            public void onUploadProgress(long currentBytesCount, long totalBytesCount, int progress, boolean done) {
+                progressBarUploadPart.setProgress(progress);
+                progressBarUploadPartTv.setText(progress + "%");
+            }
+        });
+
+        MultipartBody.Part requestBody = UploadPart.getFilePart("file-test", filePath);
+        String descriptionString = "@Part-携带参数";
+        RequestBody description = UploadPart.toRequestBody(descriptionString);
+        Observable<ResponseBody> observable = uploadService.upLoadFile(description, requestBody);
+        observable.subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ApiSubscriber<ResponseBody>() {
+                    @Override
+                    protected void onSuccess(ResponseBody bean) {
+                        log.i("onResponse", "onSuccess--->-----上传成功--");
+                        Toast.makeText(UploadDownActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+    /**
      * 多文件上传带参
      *
      * @PartMap Map<String, RequestBody>
      */
     private void multiUpLoadFile() {
         progressBarMultiUpload.setVisibility(View.VISIBLE);
-        String filePath1 = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/map.zip";
+        String filePath1 = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/test_upload.jpg";
         String filePath2 = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/vedio.wmv";
         String filePath3 = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/netapi.rar";
-        String filePath4 = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/test_upload.jpg";
+
         ArrayList<String> pathList = new ArrayList<>();
-        pathList.add(filePath4);
         pathList.add(filePath3);
         pathList.add(filePath2);
         pathList.add(filePath1);
@@ -200,27 +231,20 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
     }
 
     /**
-     * 单文件上传带参@Part
-     *
-     * @Part("description")RequestBody description, @Part MultipartBody.Part file
+     * 带参上传文件@QueryMap
      */
-    private void upLoadPartParamsFile() {
-        progressBarUpload.setVisibility(View.VISIBLE);
-        String filePath = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/test_upload.jpg";
+    private void paramsUpLoadFile() {
+        String filePath = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/vedio.wmv";
         //之前的请求方法
         ApiCommom uploadService = ServiceGenerator.createUploadService(ApiCommom.class, new UploadProgressListener() {
             @Override
             public void onUploadProgress(long currentBytesCount, long totalBytesCount, int progress, boolean done) {
-                progressBarUploadPart.setProgress(progress);
-                progressBarUploadPartTv.setText(progress + "%");
+                progressBarParamsUpload.setProgress(progress);
+                progressBarParamsUploadTv.setText(progress + "%");
             }
         });
-
-        MultipartBody.Part requestBody = UploadPart.getFilePart("file-test", filePath);
-        String descriptionString = "@Part-携带参数";
-        RequestBody description = UploadPart.toRequestBody(descriptionString);
-
-        Observable<ResponseBody> observable = uploadService.upLoadFile(description, requestBody);
+        MultipartBody.Part requestBody = UploadPart.getFilePart("file", filePath);
+        Observable<ResponseBody> observable = uploadService.upLoadFile(ParamsMapUtils.getParamsMap(), requestBody);
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -232,31 +256,6 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
                     }
                 });
     }
-
-    /**
-     * 单文件上传
-     *
-     * @Part MultipartBody.Part file
-     */
-    private void upLoadFile() {
-        progressBarUpload.setVisibility(View.VISIBLE);
-        String filePath = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/test_upload.jpg";
-        //之前的请求方法
-        ApiCommom uploadService = ServiceGenerator.createUploadService(ApiCommom.class, this);
-        MultipartBody.Part requestBody = UploadPart.getFilePart("file-test", filePath);
-        Observable<ResponseBody> observable = uploadService.upLoadFile(requestBody);
-        observable.subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ApiSubscriber<ResponseBody>() {
-                    @Override
-                    protected void onSuccess(ResponseBody bean) {
-                        log.i("onResponse", "onSuccess--->-----上传成功--");
-                        Toast.makeText(UploadDownActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
 
 
     /**
@@ -286,16 +285,16 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
      * 下载retofit
      */
     private void downloadFileByRetofit() {
-        String url = "http://issuecdn.baidupcs.com/issue/netdisk/apk/BaiduNetdisk_7.15.1.apk";
-        String url2 = "http://t.img.i.hsuperior.com/a38ee054-b941-4eb9-9e83-ba45a2ae13a8";
+        String url1 = "http://issuecdn.baidupcs.com/issue/netdisk/apk/BaiduNetdisk_7.15.1.apk";
+        String url = "http://192.168.1.115:8080/downzone/test_upload.jpg";
         ApiCommom downloadService = ServiceGenerator.createDownloadService(ApiCommom.class, new DownloadProgressListener() {
             @Override
             public void onDownloadProgress(long currentBytesCount, long totalBytesCount, int progress, boolean done) {
                 progressBarDownRetofit.setProgress(progress);
-                progressBarDownRetofitTv.setText(progress+"%");
+                progressBarDownRetofitTv.setText(progress + "%");
             }
         });
-        String savePath = getExternalFilesDir(null) + File.separator + "BaiduNetdisk.apk";
+        String savePath = getExternalFilesDir(null) + File.separator + "test_upload.jpg";
         progressBarDownRetofit.setVisibility(View.VISIBLE);
         Call call = downloadService.downloadFileCall(url, savePath);
         call.enqueue(new Callback<File>() {
@@ -303,7 +302,7 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
             public void onResponse(Call<File> call, Response<File> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     log.e("onResponse", "call_onResponse_file path:" + response.body().getPath());
-                    pathRetofitTv.setText("保存："+response.body().getPath());
+                    pathRetofitTv.setText("保存：" + response.body().getPath());
                 }
             }
 
