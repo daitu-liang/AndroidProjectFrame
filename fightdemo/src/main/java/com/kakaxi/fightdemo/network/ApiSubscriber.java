@@ -92,7 +92,6 @@ public abstract class ApiSubscriber<T> extends DisposableObserver<T> {
     private void dismissProgressDialog() {
         if (mProgressDialogHandler != null) {
             mProgressDialogHandler.obtainMessage(ProgressDialogHandler.DISMISS_PROGRESS_DIALOG).sendToTarget();
-//            mProgressDialogHandler.removeCallbacksAndMessages(null);
             mProgressDialogHandler = null;
         }
     }

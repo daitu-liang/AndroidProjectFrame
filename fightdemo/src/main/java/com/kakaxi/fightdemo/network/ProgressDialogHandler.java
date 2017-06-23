@@ -23,7 +23,6 @@ public class ProgressDialogHandler extends Handler {
                                  boolean cancelable) {
         super();
         this.context = context;
-
         this.cancelable = cancelable;
     }
 
@@ -53,6 +52,7 @@ public class ProgressDialogHandler extends Handler {
 
     private void dismissProgressDialog(){
         if (pd != null) {
+            removeCallbacksAndMessages(null);
             pd.dismiss();
             pd = null;
         }

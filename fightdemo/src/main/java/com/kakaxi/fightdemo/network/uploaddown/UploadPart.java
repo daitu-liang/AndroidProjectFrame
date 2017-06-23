@@ -14,7 +14,7 @@ import okhttp3.RequestBody;
 public class UploadPart {
     public static  MultipartBody.Part getFilePart(String partName, String filePath){
         File file=new File(filePath);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data;charset=utf-8"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
         return body;
     }

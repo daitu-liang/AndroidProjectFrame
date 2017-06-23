@@ -158,7 +158,7 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
      */
     private void upLoadPartParamsFile() {
         progressBarUpload.setVisibility(View.VISIBLE);
-        String filePath = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/netapi.zip";
+        String filePath = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/netapi.rar";
         //之前的请求方法
         ApiCommom uploadService = ServiceGenerator.createUploadService(ApiCommom.class, new UploadProgressListener() {
             @Override
@@ -195,14 +195,13 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
         String filePath1 = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/test_upload.jpg";
         String filePath2 = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/vedio.wmv";
         String filePath3 = "/storage/emulated/0/Android/data/com.kakaxi.fightdemo/files/netapi.rar";
-
         ArrayList<String> pathList = new ArrayList<>();
         pathList.add(filePath3);
         pathList.add(filePath2);
         pathList.add(filePath1);
         Map<String, RequestBody> bodyMap = new HashMap<>();
-        bodyMap.put("user_id", UploadPart.toRequestBody("usedId11001"));
-        bodyMap.put("pwd", UploadPart.toRequestBody("PartMap"));
+        bodyMap.put("userId", UploadPart.toRequestBody("usedId11001"));
+        bodyMap.put("userPwd", UploadPart.toRequestBody("pwd11001"));
         if (pathList.size() > 0) {
             for (int i = 0; i < pathList.size(); i++) {
                 File file = new File(pathList.get(i));
