@@ -281,7 +281,7 @@ public class UploadDownActivity extends AppCompatActivity implements DownloadPro
     }
 
     /**
-     * 下载retofit
+     * 下载by retofit
      */
     private void downloadFileByRetofit() {
         String url1 = "http://issuecdn.baidupcs.com/issue/netdisk/apk/BaiduNetdisk_7.15.1.apk";
