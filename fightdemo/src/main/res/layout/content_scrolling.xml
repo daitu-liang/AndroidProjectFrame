@@ -29,13 +29,14 @@
             android:background="@color/colorAccent"
             android:layout_marginTop="24dp"
             android:text="Observable和Consumer" />
+
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:background="@color/colorAccent"
             android:layout_marginTop="24dp"
+            android:background="@color/colorAccent"
             android:text="map进行事件转化" />
 
         <Button

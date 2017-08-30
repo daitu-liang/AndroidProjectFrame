@@ -25,6 +25,7 @@ public class OkHttpUtils {
             builder.readTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS);
             builder.writeTimeout(DEFAULT_WRITE_TIMEOUT, TimeUnit.SECONDS);
             builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            builder.addInterceptor(new BaseInterceptor());
             if (Constant.DEBUG) {
                 builder.addInterceptor(getHttpLoggingInterceptor());
 //                builder .addInterceptor(new LoggerInterceptor("fightdemo",true));
